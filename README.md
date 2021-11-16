@@ -7,8 +7,6 @@
 
 **TumE** is a synthetic supervised learning method used to extract evolutionary parameters from single bulk sequenced tumour biopsies using the entire variant allele frequency (VAF) distribution. This work takes inspiration from an Approximate Bayesian Computation method developed by [Williams et al.](https://www.nature.com/articles/s41588-018-0128-6) for synthetic data generation, and a mixture model approach developed by [Caravagna et al.](https://www.nature.com/articles/s41588-020-0675-5) for modeling the neutral VAF spectrum with a Pareto distribution in tumour populations. Our approach is focused on utilizing deep learning models to extract relevant evolutionary information using only the VAF distribution. To capture uncertainty in our estimates, we perform an efficient bayesian approximation via Monte Carlo dropout ([Gal & Ghahramani](https://arxiv.org/pdf/1506.02142.pdf)) during classification and quantification of relevant evolutionary parameters. 
 
-<hr>
-
 ## Installation
 
 First install TumE to a local folder.
@@ -73,7 +71,7 @@ predictions = TumE.infer.temulator_estimates(data, vaf_name='VAF', dp_name='DP',
 mutrate, time, fitness, frequency = predictions
 ```
 
-## A quick tutorial in Google Colab
+## A quick more detailed tutorial in Google Colab
 
 Coming soon!
 
