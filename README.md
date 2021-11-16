@@ -1,13 +1,11 @@
 
 # Inferring cancer evolution from single tumour biopsies using synthetic supervised learning 
 
-<img align="right" width="219" height="140" src="img/icon.svg">
+<img align="right" width="350" src="img/icon.svg">
 
 ## Overview
 
 **TumE** is a synthetic supervised learning method used to extract evolutionary parameters from single bulk sequenced tumour biopsies using the entire variant allele frequency (VAF) distribution. This work takes inspiration from an Approximate Bayesian Computation method developed by [Williams et al.](https://www.nature.com/articles/s41588-018-0128-6) for synthetic data generation, and a mixture model approach developed by [Caravagna et al.](https://www.nature.com/articles/s41588-020-0675-5) for modeling the neutral VAF spectrum with a Pareto distribution in tumour populations. Our approach is focused on utilizing deep learning models to extract relevant evolutionary information using only the VAF distribution. To capture uncertainty in our estimates, we perform an efficient bayesian approximation via Monte Carlo dropout ([Gal & Ghahramani](https://arxiv.org/pdf/1506.02142.pdf)) during classification and quantification of relevant evolutionary parameters. 
-
-<hr>
 
 ## Installation
 
@@ -76,7 +74,6 @@ mutrate, time, fitness, frequency = predictions
 ## A quick tutorial in Google Colab
 
 Coming soon!
-
 
 ## References to tools for generating synthetic tumour sequencing data
 
