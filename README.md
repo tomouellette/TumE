@@ -9,17 +9,21 @@
 
 ## Installation
 
-First install TumE to a local folder.
+First clone TumE to a local directory.
 
 ```bash
 git clone https://github.com/tomouellette/TumE
 ```
 
-From the installed directory, build package using conda or pip (tested on python3.7x - 3.9x).
+From the installed directory, build package using pip (tested on python3.7x - 3.9x).
 
 ```bash
 python3 -m pip install .
-#or 
+```
+
+or conda.
+
+```bash
 conda develop .
 ```
 
