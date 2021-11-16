@@ -15,7 +15,7 @@ First clone TumE to a local directory.
 git clone https://github.com/tomouellette/TumE
 ```
 
-From the installed directory, build package using pip (tested on python3.7x - 3.9x).
+From the installed directory, build TumE and requirements using pip (tested on python3.7x - 3.9x).
 
 ```bash
 python3 -m pip install .
@@ -25,9 +25,16 @@ or conda.
 
 ```bash
 conda develop .
+conda install --file requirements.txt
 ```
 
 If install fails, please submit an issue with minimal code to reproduce.
+
+Additional dependencies can be installed as follows
+
+```bash
+python3 -m pip install -r requirements.txt
+```
 
 ## Basic usage
 
