@@ -3,13 +3,13 @@
 
 <img align="right" width="219" height="140" src="img/icon.svg">
 
-### Overview
+## Overview
 
 **TumE** is a synthetic supervised learning method used to extract evolutionary parameters from single bulk sequenced tumour biopsies using the entire variant allele frequency (VAF) distribution. This work takes inspiration from an Approximate Bayesian Computation method developed by [Williams et al.](https://www.nature.com/articles/s41588-018-0128-6) for synthetic data generation, and a mixture model approach developed by [Caravagna et al.](https://www.nature.com/articles/s41588-020-0675-5) for modeling the neutral VAF spectrum with a Pareto distribution in tumour populations. Our approach is focused on utilizing deep learning models to extract relevant evolutionary information using only the VAF distribution. To capture uncertainty in our estimates, we perform an efficient bayesian approximation via Monte Carlo dropout ([Gal & Ghahramani](https://arxiv.org/pdf/1506.02142.pdf)) during classification and quantification of relevant evolutionary parameters. 
 
 <hr>
 
-### Installation
+## Installation
 
 First install TumE to a local folder.
 
@@ -27,7 +27,7 @@ conda develop .
 
 If install fails, please submit an issue with minimal code to reproduce.
 
-### Basic usage
+## Basic usage
 
 TumE works under the assumption that you have allele frequency and sequencing depth information from diploid regions of an individual tumour biopsy that have been purity corrected (where VAF and depth are vectors of length *N* corresponding to frequency and sequencing depth, alts + ref, for a given somatic mutation). You may use non-diploid regions if they have been copy-number corrected to a 'diploid' state, but this is generally only possible if you have allele/copy-specific mutation information. Furthermore, for accurate estimates we suggest sequencing tumours to >70-100x mean effective coverage (sequencing depth * purity). Samples with lower quality may lead to spurious results. The following example will generate TumE estimates with 50 MC samples and cluster subclones using the expected variance under binomial sequencing noise model.
 
@@ -54,7 +54,7 @@ plt.show()
 ```
 <p align='center'><img width="600" height="400" src="img/example.png"></p>
 
-### Inferring additional evolutionary parameters using transfer learned models
+## Inferring additional evolutionary parameters using transfer learned models
 
 We used transfer learning to re-tune TumE models to predict mutation rate, subclone fitness, and subclone emergence time using an alternative simulation framework [TEMULATOR](https://t-heide.github.io/TEMULATOR/index.html). The function `TumE.infer.temulator_estimates` should be used after determining evolution model using standard `TumE.infer.estimate` function. Subclone parameter estimates are only currently available for the single subclone setting. Mutation rate estimates can be applied in any sample with sufficient depth and coverage.
 
@@ -73,15 +73,12 @@ predictions = TumE.infer.temulator_estimates(data, vaf_name='VAF', dp_name='DP',
 mutrate, time, fitness, frequency = predictions
 ```
 
-### A quick tutorial in Google Colab
+## A quick tutorial in Google Colab
 
-Coming soon! A tutorial covering: 
-- How to easily implement Monte Carlo dropout in PyTorch and some toy examples
-- How to use transfer learning to recycle pre-trained TumE models for other inference tasks that use VAF distributions
+Coming soon!
 
-<hr>
 
-### References to tools for generating synthetic tumour sequencing data
+## References to tools for generating synthetic tumour sequencing data
 
 - [CanEvolve.jl](https://github.com/tomouellette/CanEvolve.jl)
 - [TEMULATOR](https://t-heide.github.io/TEMULATOR/index.html)
