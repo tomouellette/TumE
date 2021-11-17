@@ -37,21 +37,6 @@ def load_model(mod: str, kind: str, input_dim = 192):
     m.eval()
     return m
 
-def transfer_model(input_dim = 192):
-    # Initialize architecture
-    mod = '7_5.444791546772337e-05_True_True.NCCH3Y8VJCWA9MZ.pt'
-    n_linear = int(mod.split('_')[0])
-    MS = 'evolution_11_5_Linear_17_9_7_9.027991854570908e-06_5_0.14.TASYG7N3IJR1DLN.pt'
-    OS = 'onesubclone_15_11_Linear_15_3_7_0.0001698628401328024_6.GS3BEXB3O906DHE.pt'
-    model1 = load_model(mod = MS, kind = 'evolution')
-    model2 = load_model(mod = OS, kind = 'onesubclone')
-    pretrained_models = [model1, model2]
-    m = TransferModel(pretrained_models, n_linear = n_linear, gradients = True, input_dim = input_dim, n_tasks = 4)
-    mod = importlib.resources.open_binary('TumE.transfer_models', mod)
-    m.load_state_dict(torch.load(mod))
-    m.eval()
-    return m
-
 def prediction(mod: str, kind: str, montecarlo = 50, means = True, path = None, vaf = None, dp = None, seed = 456789) -> tuple:
     """
     Generates cancer evolution predictions given a VAF distribution or a large set of VAF distributions in numpy format
@@ -331,6 +316,30 @@ def estimate(df, vaf_name = 'VAF', dp_name = 'DP', nmc = 100, clustering = 'bino
     return {'all_estimates':[m, ns, f, t, f1, f2, t1, t2], 
             'predictions': output,
             'annotated': df}
+
+def transfer_model(input_dim = 192):
+    """
+    Loads transfer learning model re-optimized for estimating parameters under a deterministic subclone model
+
+    :param input_dim (int): Size of input dimension (fixed to 192 for TumE)
+    """
+    # Initialize architecture
+    mod = '7_5.444791546772337e-05_True_True.NCCH3Y8VJCWA9MZ.pt'
+    n_linear = int(mod.split('_')[0])
+
+    # Build transfer learning architecture
+    MS = 'evolution_11_5_Linear_17_9_7_9.027991854570908e-06_5_0.14.TASYG7N3IJR1DLN.pt'
+    OS = 'onesubclone_15_11_Linear_15_3_7_0.0001698628401328024_6.GS3BEXB3O906DHE.pt'
+    model1 = load_model(mod = MS, kind = 'evolution')
+    model2 = load_model(mod = OS, kind = 'onesubclone')
+    pretrained_models = [model1, model2]
+
+    # Load model
+    m = TransferModel(pretrained_models, n_linear = n_linear, gradients = True, input_dim = input_dim, n_tasks = 4)
+    mod = importlib.resources.open_binary('TumE.transfer_models', mod)
+    m.load_state_dict(torch.load(mod))
+    m.eval()
+    return m
 
 def transfer_predictions(features, nmc=50, scaled_popsize = 10e8, genomesize = 3.1e9, seed = 123456, constrain_mc = True, mutrate_correction = True) -> tuple:
     """
