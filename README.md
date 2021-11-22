@@ -25,7 +25,6 @@ or conda.
 
 ```bash
 conda develop .
-conda install --file requirements.txt
 ```
 
 If install fails, please submit an issue with minimal code to reproduce.
@@ -82,10 +81,9 @@ predictions = TumE.infer.temulator_estimates(data, vaf_name='VAF', dp_name='DP',
 mutrate, time, fitness, frequency = predictions
 ```
 
-## A quick more detailed tutorial in Google Colab
+## A quick tutorial in Google Colab
 
-Coming soon!
-
+A tutorial describing how to run TumE, examine the MC dropout samples, and to re-tune existing models for different tasks.
 
 ## References to tools for generating synthetic tumour sequencing data
 
