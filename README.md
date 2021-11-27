@@ -9,6 +9,8 @@
 
 A preprint (version 1) is available @ https://www.biorxiv.org/content/10.1101/2021.11.22.469566v1.
 
+An online interactive supplementary section for this paper can be found @ [here](https://tomouellette.gitlab.io/ouellette_awadalla_2021/index.html).
+
 ## Installation
 
 First clone TumE to a local directory.
