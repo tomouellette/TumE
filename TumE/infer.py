@@ -385,7 +385,7 @@ def transfer_predictions(features, nmc=50, scaled_popsize = 10e8, genomesize = 3
         time = time - np.euler_gamma/np.log(2)
 
         # Rescale time in tumour doublings and fitness to realistic population size        
-        fitness = 1 + (fitness-1)*(np.log2((1-frequency)*1e4)-time) / (np.log2((1-frequency)*scaled_popsize)-time*np.log2(1e8)/np.log2(1e4))    
+        fitness = 1 + (fitness-1)*(np.log2((1-frequency)*1e4)-time) / (np.log2((1-frequency)*scaled_popsize)-time*np.log2(scaled_popsize)/np.log2(1e4))    
         
     # Rescale time back to scaled_population_size
     time = time*np.log(scaled_popsize)/np.log(1e4)
