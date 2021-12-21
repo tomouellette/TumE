@@ -55,9 +55,9 @@ data = pd.read_csv(AML)
 estimates = TumE.infer.estimate(data, vaf_name = 'VAF', dp_name = 'DP', clustering = 'binomial', nmc = 50)
 
 # > Parse estimates
-all_mc_samples = estimates['all_estimates'] # A list of 8 numpy arrays containing MC samples for task
+all_mc_samples = estimates['all_estimates'] # A list of 8 numpy arrays containing MC samples for each task
 predictions = estimates['predictions'] # Interpretable output of predicted labels and mean +/- CI estimates
-annotated = estimates['predictions'] # Original dataframe with annotated mutations assigned to neutral, subclonal, or clonal
+annotated = estimates['annotated'] # Original dataframe with annotated mutations assigned to neutral, subclonal, or clonal
 
 # > Plot
 import matplotlib.pyplot as plt
