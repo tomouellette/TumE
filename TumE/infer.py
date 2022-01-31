@@ -82,7 +82,7 @@ def prediction(mod: str, kind: str, montecarlo = 50, means = True, path = None, 
         
         # Single sample inference
         if type(vaf) != type(None):
-            features = [np.hstack(vaf2feature(vaf, depth = dp))]
+            features = np.array([np.hstack(vaf2feature(vaf, depth = dp))])
         
         # Predicting evolutionary mode and number of subclones
         if kind == 'evolution':

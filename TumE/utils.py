@@ -1,9 +1,11 @@
 import numpy as np
-import numpy as np
 import pandas as pd
 from torch.utils.data import DataLoader
 from torch.utils.data import Dataset
 import torch
+from scipy.stats import gaussian_kde
+from sklearn import mixture
+from scipy.signal import find_peaks
 
 """
 General utilities for post-processing of simulations for deep learning based inference and prediction
@@ -218,3 +220,55 @@ def get_bins(subclone, vaf):
     gts = lambda x: x[(x > min(subclone)) & (x < max(subclone))]
     locs = [int(np.where(i == h[1])[0]) for i in gts(h[1])]
     return len(locs)
+
+def nrd0_bandwith(x):
+    high = np.std(x, ddof=1)
+    q75, q25 = np.percentile(x, [75 ,25])
+    iqr = q75 - q25
+    low = min(high, iqr/1.34)
+    if not ((low == high) or (low == abs(x[0])) or (low == 1)):
+        low = 1
+    return 0.9 * low *len(x)**-0.2
+
+def correct_vaf(vaf, upper=0.15, lower=0.0, fast=True):
+    """
+    Corrects for VAFs for minor errors in purity estimates given purity-adjusted VAFs from diploid regions
+    
+    :param vaf (np.ndarray): an array of the variant allele frequency for each mutation
+    :param upper (float): the maximum distance away from detected clonal peak to perform correction (i.e. 0.5 - peak < upper)
+    :param upper (lower): the minimum distance away from detected clonal peak to perform correction (i.e. 0.5 - peak > lower)
+    :param fast (bool): If fast is True, then for samples with large number of mutations (e.g. MMR) will use the closest peak to 0.5 from 2nd derivative to correct VAF
+    """
+    if (fast == True) & (len(vaf) > 50000):
+        # Skip kernel density estimation
+        vaf_ = np.sort(vaf)
+        peaks = np.array([0.5])
+
+    else:
+        # Compute kernel density estimate with nrd0 bandwith
+        vaf_ = np.sort(vaf)
+        kernel = gaussian_kde(vaf_, bw_method=nrd0_bandwith(vaf_))
+
+        # Find peaks of density
+        peaks = find_peaks(kernel(vaf_), height=0)[0]
+        peaks = vaf_[peaks]
+
+    if len(peaks) > 0:
+        # Select peak closest to 0.5
+        peaks = peaks[np.where(np.min(abs(0.5 - peaks)) == abs(0.5 - peaks))][0]
+        
+        # Update VAF distribution
+        if (abs(0.5 - peaks) < upper) & (abs(0.5 - peaks) > lower):
+            # Approximately find means of peaks
+            vaf_ = vaf_[(vaf_ < 1) & (vaf_ > 0.3)]
+            mx = mixture.GaussianMixture(n_components=1, means_init=[[0.5]], covariance_type='full')
+            mx.fit(vaf_.reshape(-1,1))
+            mu = mx.means_.flatten()
+
+            # Correct clonal cluster
+            vaf = vaf * (0.5/mu)            
+            return vaf
+        else:
+            return vaf
+    else:
+        return vaf

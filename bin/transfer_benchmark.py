@@ -36,7 +36,7 @@ def load_transfer_model(dir, mod, model_dir = '../analysis/models/'):
 	model2.eval()
 	pretrained_models = [model1, model2]
 	# Initialize model dictionary for transfer learning mode	
-	n_linear = int(mod.split('_')[0])
+	n_linear = int(mod.split('_')[2])
 	m = TransferModel(pretrained_models, n_linear = n_linear, gradients = True, input_dim = 192, n_tasks = 4)
 	m.load_state_dict(torch.load(dir + mod))
 	m.eval()

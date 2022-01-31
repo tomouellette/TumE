@@ -87,7 +87,7 @@ runMobster <- function(vaf, reads, depth, slow = FALSE) {
             if ((c2freq > 0) & (c3freq > 0) & (tail == FALSE)) {
             	nsubclonal = 1
             }
-            if ((c2freq > 0) & (c3freq > 0)) {
+            if ((c2freq > 0) & (c3freq > 0) & (tail == TRUE)) {
             	nsubclonal = 2
             }
 
