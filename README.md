@@ -19,7 +19,7 @@ An online interactive supplementary section for this paper can be found [here](h
 python3 -m pip install 'git+https://github.com/tomouellette/TumE'
 ```
 
-If the one-liner doesn't work for you, try the multi-linee installation.
+If the one-liner doesn't work for you, try the multi-line installation.
 
 ### Multi-liner
 
