@@ -66,6 +66,19 @@ plt.show()
 ```
 <p align='center'><img width="600" height="400" src="img/example.png"></p>
 
+One other import note for proper estimates! If you think your tumour purity estimates may be impacted by errors, we suggest running your VAF data through the `correct_vaf` function. `correct_vaf` adjusts VAFs subject to minor errors in purity estimates (essentially properly centering the diploid clonal cluster at 50% VAF). `correct_vaf` requires as input, a vector of VAFs from diploid mutations that have already been divided by the current purity estimate (e.g. VAF/purity).
+
+```python
+# Purity estimate
+p = 0.8
+
+# Adjust vafs for purity
+uncorrected_vafs = original_vafs / p
+
+# Correct vafs for slight errors in purity estimates
+corrected_vafs = correct_vaf(vaf = uncorrected_vafs, fast=True)
+```
+
 ## Inferring additional evolutionary parameters using transfer learned models
 
 We used transfer learning to re-tune TumE models to predict mutation rate, subclone fitness, and subclone emergence time using an alternative simulation framework [TEMULATOR](https://t-heide.github.io/TEMULATOR/index.html). The function `TumE.infer.temulator_estimates` should be used after determining evolution model using standard `TumE.infer.estimate` function. Subclone parameter estimates are only currently available for the single subclone setting. Mutation rate estimates can be applied in any sample with sufficient depth and coverage.
@@ -84,10 +97,6 @@ predictions = TumE.infer.temulator_estimates(data, vaf_name='VAF', dp_name='DP',
 # > Unpack estimates
 mutrate, time, fitness, frequency = predictions
 ```
-
-## A quick tutorial in Google Colab
-
-A tutorial describing how to run TumE, examine the MC dropout samples, and to re-tune existing models for different tasks.
 
 ## References to tools for generating synthetic tumour sequencing data
 
