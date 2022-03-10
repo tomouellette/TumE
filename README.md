@@ -13,6 +13,16 @@ An online interactive supplementary section for this paper can be found [here](h
 
 ## Installation
 
+### One-liner
+
+```python
+python3 -m pip install 'git+https://github.com/tomouellette/TumE'
+```
+
+If the one-liner doesn't work for you, try the multi-linee installation.
+
+### Multi-liner
+
 First clone TumE to a local directory.
 
 ```bash
