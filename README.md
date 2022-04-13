@@ -11,6 +11,8 @@ A preprint (version 1) is available [here](https://www.biorxiv.org/content/10.11
 
 An online interactive supplementary section for this paper can be found [here](https://tomouellette.gitlab.io/ouellette_awadalla_2021/index.html).
 
+<img width="100%" src="img/tume_workflow.svg">
+
 ## Installation
 
 ### One-liner
