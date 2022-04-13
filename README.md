@@ -11,7 +11,7 @@ A preprint (version 1) is available [here](https://www.biorxiv.org/content/10.11
 
 An online interactive supplementary section for this paper can be found [here](https://tomouellette.gitlab.io/ouellette_awadalla_2021/index.html).
 
-<img width="100%" src="img/tume_workflow.svg">
+<img width="100%" src="img/tume_workflow.gif">
 
 ## Installation
 
@@ -76,7 +76,7 @@ import matplotlib.pyplot as plt
 TumE.plotting.plot(estimates)
 plt.show()
 ```
-<p align='center'><img width="600" height="400" src="img/tume_workflow.gif"></p>
+<p align='center'><img width="600" height="400" src="img/example.png"></p>
 
 One other important note for proper estimates! If you think your tumour purity estimates may be impacted by errors, we suggest running your VAF data through the `correct_vaf` function. `correct_vaf` adjusts VAFs subject to minor errors in purity estimates (essentially properly centering the diploid clonal cluster at 50% VAF). `correct_vaf` requires as input, a vector of VAFs from diploid mutations that have already been divided by the current purity estimate (e.g. VAF/purity).
 
