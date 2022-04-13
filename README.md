@@ -1,7 +1,7 @@
 
 # Inferring cancer evolution from single tumour biopsies using synthetic supervised learning 
 
-<img align="right" width="328.5" height="210" src="img/icon.svg">
+<img width="100%" src="img/tume_workflow.gif">
 
 ## Overview
 
@@ -10,8 +10,6 @@
 A preprint (version 1) is available [here](https://www.biorxiv.org/content/10.1101/2021.11.22.469566v1).
 
 An online interactive supplementary section for this paper can be found [here](https://tomouellette.gitlab.io/ouellette_awadalla_2021/index.html).
-
-<img width="100%" src="img/tume_workflow.gif">
 
 ## Installation
 
