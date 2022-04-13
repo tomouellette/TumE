@@ -60,27 +60,29 @@ import TumE
 import numpy as np
 import pandas as pd
 
-# > Load data frame with VAF and DP columns (Example: WGS from AML patient @ 320x sequencing depth, Griffith et al. 2015)
+# Load data frame with VAF and DP columns (Example: WGS from AML patient @ 320x sequencing depth, Griffith et al. 2015)
 data = pd.read_csv(AML)
 
-# > Generate estimates with 50 stochastic passes through network
+# Generate estimates with 50 stochastic passes through network
 estimates = TumE.infer.estimate(data, vaf_name = 'VAF', dp_name = 'DP', clustering = 'binomial', nmc = 50)
 
-# > Parse estimates
+# Parse estimates
 all_mc_samples = estimates['all_estimates'] # A list of 8 numpy arrays containing MC samples for each task
 predictions = estimates['predictions'] # Interpretable output of predicted labels and mean +/- CI estimates
 annotated = estimates['annotated'] # Original dataframe with annotated mutations assigned to neutral, subclonal, or clonal
 
-# > Plot
+# Plot
 import matplotlib.pyplot as plt
 TumE.plotting.plot(estimates)
 plt.show()
 ```
-<p align='center'><img width="600" height="400" src="img/example.png"></p>
+<p align='center'><img width="600" height="400" src="img/tume_workflow.gif"></p>
 
-One other import note for proper estimates! If you think your tumour purity estimates may be impacted by errors, we suggest running your VAF data through the `correct_vaf` function. `correct_vaf` adjusts VAFs subject to minor errors in purity estimates (essentially properly centering the diploid clonal cluster at 50% VAF). `correct_vaf` requires as input, a vector of VAFs from diploid mutations that have already been divided by the current purity estimate (e.g. VAF/purity).
+One other important note for proper estimates! If you think your tumour purity estimates may be impacted by errors, we suggest running your VAF data through the `correct_vaf` function. `correct_vaf` adjusts VAFs subject to minor errors in purity estimates (essentially properly centering the diploid clonal cluster at 50% VAF). `correct_vaf` requires as input, a vector of VAFs from diploid mutations that have already been divided by the current purity estimate (e.g. VAF/purity).
 
 ```python
+from TumE.utils import correct_vaf
+
 # Purity estimate
 p = 0.8
 
@@ -100,13 +102,13 @@ import TumE
 import numpy as np
 import pandas as pd
 
-# > Load data frame with VAF and DP columns
+# Load data frame with VAF and DP columns
 data = pd.read_csv(sample)
 
-# > Generate estimates using transfer learning models
+# Generate estimates using transfer learning models
 predictions = TumE.infer.temulator_estimates(data, vaf_name='VAF', dp_name='DP', scaled_popsize=1e10)
 
-# > Unpack estimates
+# Unpack estimates
 mutrate, time, fitness, frequency = predictions
 ```
 
