@@ -1,6 +1,6 @@
 
 # Inferring cancer evolution from single tumour biopsies using synthetic supervised learning 
-
+<br>
 <img width="100%" src="img/tume_workflow.gif">
 
 ## Overview
